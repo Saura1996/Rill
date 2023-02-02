@@ -1,0 +1,22 @@
+name: Schedule data collection
+
+on:
+  schedule:
+    - cron: "45 21 * * *"
+
+jobs:
+  run-data-collection:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run data collection script
+        run: python data_collection.py
+
+      - name: Commit and push changes
+        uses: git-auto-commit-action/git-auto-commit@v2
+        with:
+          commit_message: "Automated data collection"
+          push: true
